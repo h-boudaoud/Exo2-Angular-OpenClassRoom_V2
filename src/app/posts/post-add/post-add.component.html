@@ -1,1 +1,59 @@
-<p>post-add works!</p>
+<section
+  id="post-add"
+  [ngStyle]="{
+  'display': (activeSubmit) ? 'table-cell' : 'block'
+  ,'vertical-align':  (activeSubmit) ? 'middle' : 'none'
+  ,'text-align':  (activeSubmit) ? 'center' : 'left'
+  }"
+>
+  <div *ngIf="!activeSubmit">
+    <div class="col-md-12 mb-3">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        placeholder="Title"
+        value=""
+        [(ngModel)]="newPost.title"
+        [ngClass]="{
+          'alert alert-danger':!titleError
+          ,'alert alert-success':titleError && newPost.title.trim()!=''
+        }"
+        role="alert"
+        required>
+    </div>
+    <div class="col-md-12 mb-3">
+      <label for="content">Post</label>
+      <textarea
+        class="form-control"
+        id="content"
+        name="content"
+        [(ngModel)]="newPost.content"
+        [ngClass]="{
+          'alert alert-danger':!contentError
+          ,'succes alert-succes':contentError && newPost.content.trim()!=''
+        }"
+        role="alert"
+      ></textarea>
+    </div>
+    <div>&nbsp;</div>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="activeSubmit"
+    >
+      <span class="glyphicon glyphicon-ok-sign"></span> Submit
+    </button>
+  </div>
+  <div *ngIf="activeSubmit" class="container" >
+    Le post a bien été {{(index) ? 'modifié':'ajouté'}}
+    <br />
+    <br /><button routerLink="/posts">Voir les posts</button>
+  </div>
+
+</section>
+
+

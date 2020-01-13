@@ -1,1 +1,59 @@
-<p>post-list-item works!</p>
+<section id="post-list-item">
+  <section>
+    <nav class="toolbar">
+      <div class="capitalize">{{post.title}}</div>
+
+      <div class="spacer"></div>
+      <div>{{post.created_at | date:'dd/MM/yyyy HH:mm:ss'}}</div>
+    </nav>
+    <div
+      [ngClass]="{
+    'alert alert-danger':post.loveIts < 0
+    ,'alert alert-success':post.loveIts > 0
+    ,'':post.loveIts == 0
+  }"
+      role="alert">
+    <pre class="brush: js line-numbers  language-js"><code class="  language-js">{{post.content}}
+    </code></pre>
+      <div style="display: flex">
+        <div *ngIf="post.last_update" style="font-size: .85rem;">
+          Dernière mise à jour :
+          {{post.last_update | date:'dd/MM/yyyy HH:mm:ss'}}
+        </div>
+        <div class="spacer"></div>
+        <button
+          (click)="loveIt(true)"
+          class="btn btn-success"
+          style="padding:0 1rem;border: .3rem solid"
+          title="I love it"
+        ><span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+        <button
+          (click)="loveIt(false)"
+          class="btn btn-danger"
+          title="I don't love it"
+          style="padding:0 1rem;border: .3rem solid"
+        ><span class="glyphicon glyphicon-thumbs-down"></span>
+        </button>
+      </div>
+      <div style="display: flex;">
+        <button
+          (click)="deletePost()"
+          class="btn btn-danger"
+          style="padding:0 1rem;border: .3rem solid"
+          title="Delete"
+        ><span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <button
+          [routerLink]="'/edit/'+index"
+          class="btn btn-primary"
+          style="padding:0 1rem;border: .3rem solid"
+          title="Edit"
+        ><span class="glyphicon glyphicon-edit"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+</section>

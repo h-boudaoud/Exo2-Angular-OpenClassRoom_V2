@@ -11,37 +11,32 @@ import {PageTitlesService} from './services/page-titles.service';
 export class AppComponent {
   title = 'Exo2-Angular-OpenClassRoom';
   private nameComponent: string;
-  public postList: any;
+  private postList: any;
   private pageTitle: string;
+  private url: string;
 
   constructor(
-    public postsService: PostsService,
+    private postsService: PostsService,
     private titleService: PageTitlesService,
     private route: ActivatedRoute,
     private router: Router
   ) {
     this.postList = this.postsService.postList;
-    console.log('AppComponent -> posts :', this.postList.length, '\n', this.postList);
+    // console.log('AppComponent -> posts :', this.postList.length, '\n', this.postList);
     this.nameComponent = (this.postList.length > 0) ? 'posts' : 'add';
-    this.routeEvent(this.route);
+    this.routeEvent();
   }
-
-  changeComponent(component: string) {
-    this.router.navigate([component]).then(r => true );
-    /*
-     console.log('route : ', this.route);
-    */
-  }
-
-  routeEvent(route: ActivatedRoute) {
+  routeEvent(): void {
     let urlParams = null;
     this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd && e.url !== '/') {
+        this.url = e.url;
+        console.log ('', this.url);
         urlParams = e.url.split('/');
         urlParams.shift();
-        console.log('this.route NavigationEnd url: ', urlParams[0]);
+        // console.log('AppComponent NavigationEnd url: ', urlParams[0]);
         this.nameComponent = urlParams.shift();
-        console.log('this.route NavigationEnd e: ', e);
+        // console.log('AppComponent NavigationEnd e: ', e);
       }
       this.pageTitle = this.titleService.pageTitle(this.nameComponent, urlParams);
     });

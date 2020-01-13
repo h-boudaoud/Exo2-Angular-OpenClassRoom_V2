@@ -1,1 +1,14 @@
-<p>post-list works!</p>
+<section id ="post-list-item">
+  <p *ngIf="postList.length===0">La list des posts est vide</p>
+  <ul *ngIf="postList.length > 0 ">
+    <li
+      *ngFor="let postItem of postList; let i = index"
+    >
+      <app-post-list-item
+        [id] = "postItem.id"
+        [index]="i"
+
+      ></app-post-list-item>
+    </li>
+  </ul>
+</section>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PostsService} from '../../services/posts.service';
 
 @Component({
   selector: 'app-post-list',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
+  private postList: any[];
 
-  constructor() { }
+  constructor(
+    private postsService: PostsService
+  ) {
+    // console.log('PostListComponent ->postsService :', postsService);
+    // console.log('PostListComponent ->postList :', this.postList);
+  }
 
   ngOnInit() {
+    this.postList =  this.postsService.postList ;
+    // console.log('PostListComponent -> postList:', this.postList);
   }
 
 }

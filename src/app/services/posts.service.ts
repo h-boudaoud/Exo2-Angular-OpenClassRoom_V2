@@ -4,11 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PostsService {
-  postList = [];
+  readonly postList = [];
   constructor() {
     // @ts-ignore
     this.postList = [
       {
+        id: 1,
         title: 'post n°1',
         content: 'ceci est le premier post',
         loveIts: 3,
@@ -17,6 +18,7 @@ export class PostsService {
         // posts: []
       },
       {
+        id: 2,
         title: 'un autre post',
         content: 'hé oui\nUn nouveau post',
         loveIts: 0,
@@ -25,6 +27,7 @@ export class PostsService {
         // posts: []
       },
       {
+        id: 3,
         title: 'post numéro 3',
         content: 'le dernier post inutile\nTestant ce code',
         loveIts: -3,
@@ -54,5 +57,8 @@ export class PostsService {
     if (!rep) {
       this.postList[index].loveIts--;
     }
+  }
+  onSearchPost(id: number): number {
+    return this.postList.findIndex((post) => post.id === id);
   }
 }

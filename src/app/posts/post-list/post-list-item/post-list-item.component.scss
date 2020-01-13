@@ -1,0 +1,37 @@
+.toolbar {
+  //height: 7vh;
+  width: 100%;
+  padding: 0 2rem;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  background-color: #ff0000;
+}
+
+.spacer {
+  flex: 1;
+}
+
+#post-list-item{
+  margin: .5rem auto ;
+  padding: .5rem;
+  width: 70vw;
+  max-width: 80% !important;
+  border: .1rem dashed #333333;
+}
+#post-list-item> section> div , #post-list-item> section> div> div{
+  padding: 1rem !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+pre{
+  margin: 0;
+  padding: 1rem;
+}
+
+.capitalize::first-letter {
+  text-transform: uppercase;
+}

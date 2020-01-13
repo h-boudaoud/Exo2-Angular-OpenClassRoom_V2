@@ -1,6 +1,18 @@
-# Exo2AngularOpenClassRoom
+﻿
+######################################################################################
+#### Exo2-Angular-OpenClassRoom
+##### J'ai réalisé ce projet pour mettre en place ce que j'ai appris dans le cours d'Angular de OpenClassRoom.
+##### Aussi, j'en ai profité pour appliquer des savoir-faire en git
+##### une première réalisation de ce projet est publiée sur GitHub à cette adresse 
+###### https://github.com/h-boudaoud/Exo1-Angular-OpenClassRoom
+J'ai réalisé certains commits après avoir effectué un build prod. Ainsi, on peut tester les foncionalités ajoutées.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.22.
+
+######################################################################################
+
+# ApplicationTypeBlog
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
 
 ## Development server
 

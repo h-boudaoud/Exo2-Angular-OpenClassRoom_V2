@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PageTitlesService {
-  private pageTitles: {
+  private readonly pageTitles: {
     add: string
     , edit: string
     , posts: string
@@ -15,7 +15,7 @@ export class PageTitlesService {
   constructor() {
     this.pageTitles = {
       add: 'ajouter un nouveau post'
-      , edit: 'Modifier le post d\'id'
+      , edit: 'Modifier le post d\'index'
       , posts: 'la list des posts'
       , document: 'Le contenu du document'
       , error: 'Error in url'

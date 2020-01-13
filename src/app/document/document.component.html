@@ -1,1 +1,22 @@
-<p>document works!</p>
+<!--<section>-->
+<!--  <object-->
+<!--    data="assets/document/Exo1.pdf"-->
+<!--    width="100%" height="90%"-->
+<!--    type='application/pdf'-->
+<!--  >-->
+<!--    <p>Sorry, the document couldn't be displayed :(</p>-->
+<!--    <a href="assets/document/Exo1.pdf" target="_blank">Click Here</a>-->
+<!--  </object>-->
+<!--</section>-->
+
+<section>
+  <object #myObject
+          data="url"
+          width="100%" height="90%"
+          type='application/pdf'
+  >
+    <p>Sorry, the document couldn't be displayed :(</p>
+    <a [href]="url" target="_blank">Click Here</a>
+  </object>
+</section>
+
