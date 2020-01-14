@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PostsService} from '../../services/posts.service';
 
@@ -8,80 +8,107 @@ import {PostsService} from '../../services/posts.service';
   styleUrls: ['./post-add.component.scss']
 })
 export class PostAddComponent implements OnInit {
-  private activeSubmit: boolean;
-  private contentError: boolean;
-  private titleError: boolean;
-  private newPost: { created_at: Date, last_update: Date; title: string; content: string; loveIts: number };
-  @Input() index: number;
+  activeSubmit: boolean;
+  contentError: boolean;
+  titleError: boolean;
+  post: object;
+  index: number;
+
+  // @Input() index: number;
   constructor(
     private postsService: PostsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.activeSubmit = false;
-    this.index = (this.route.snapshot.params.id) ? this.route.snapshot.params.id : this.index;
 
-    if (this.index > -1) {
-      this.newPost = this.postsService.postList[this.index];
+    console.log(
+      ' ---------    PostAddComponent - ngOnInit L26   ----------- ',
+      this.route.snapshot.params.id > 0
+    );
+    // this.index = (this.route.snapshot.params.id) ? this.route.snapshot.params.id : this.index;
+    if (this.route.snapshot.params.id > 0) {
+      const id = this.route.snapshot.params.id * 1;
+      this.post = this.postsService.onGetPostByID(id);
+      console.log('PostAddComponent - ngOnInit L29 - post : ', this.post);
+      this.index = this.postsService.onSearchIndexPost(id);
     } else {
-      this.newPost = {
+      // @ts-ignore
+      this.index = -1;
+
+      this.post = {
         title: '',
+        // l'implimentation de l'id peut aussi se faire dans postsServive ou au niveau de la base de données
+        id : this.postsService.onGenerateID(),
+        published: true,
         content: '',
         loveIts: 0,
         created_at: null,
         last_update: null
       };
     }
+
+    console.log('PostAddComponent - ngOnInit - index : ', this.index);
+    console.log('PostAddComponent - ngOnInit - post : ', this.post);
+
     this.titleError = true;
     this.contentError = true;
   }
 
   titleErrors() {
     const regex = RegExp('^[A-Za-z\\d\\- \'\")(\\][@:\\/,;.!àçèé°]+$');
-    // console.log('this.newPost.title',this.newPost.title,'\nregex : ',regex.test(this.newPost.title.trim()))
+    // console.log('this.post.title',this.post.title,'\nregex : ',regex.test(this.post.title.trim()))
     // @ts-ignore
-    return !(this.newPost.title.trim().length === 0 || !regex.test(this.newPost.title.trim()));
+    return !(this.post.title.trim().length === 0 || !regex.test(this.post.title.trim()));
   }
 
   contentErrors() {
-    const regex = RegExp('^[A-Za-z\\d\\-\\s\'\")(\\][@:\\/,;.!àçèé°]+$');
-    // console.log('this.newPost.content',this.newPost.title,'\nregex : ',regex.test(this.newPost.content.trim()))
+    const regex = RegExp('^[A-Za-z\\d\\-\\s\'\")(\\][@:\\/,;.!àçèé°=><+&%]+$');
+    // console.log('this.post.content',this.post.title,'\nregex : ',regex.test(this.post.content.trim()))
     // @ts-ignore
-    return !(this.newPost.content.trim().length === 0 || !regex.test(this.newPost.content.trim()));
+    return !(this.post.content.trim().length === 0 || !regex.test(this.post.content.trim()));
+  }
+  private onValidate(): boolean {
+    this.titleError = this.titleErrors();
+    this.contentError = this.contentErrors();
+    // const validate = this.titleError && this.contentError;
+    // console.log('validate :', validate);
+    return this.titleError && this.contentError;
   }
 
   onSubmit() {
-    this.titleError = this.titleErrors();
-    this.contentError = this.contentErrors();
-    const validate = this.titleError && this.contentError;
-    // console.log('validate :', validate);
-    if (this.titleError && this.contentError) {
+    // @ts-ignore
+    console.log('PostAddComponent - onSubmit - .published : ', this.post.published);
+    console.log('PostAddComponent - onSubmit - post : ', this.post);
+    if (this.onValidate()) {
       let h: number;
       let w: number;
       h = document.getElementById('post-add').offsetHeight;
       w = document.getElementById('post-add').offsetWidth;
+      // @ts-ignore
       if (this.index > -1) {
-        this.newPost.last_update = new Date();
-      } else {
-        this.index = this.postsService.onLengthPostList();
         // @ts-ignore
-        this.newPost.created_at = new Date();
-        this.postsService.onAddPost(this.newPost);
+        this.post.last_update = new Date();
+      } else {
+        // @ts-ignore
+        this.post.created_at = new Date();
       }
-      // console.log('newPost :', this.newPost);
-      // console.log('index :', index);
+
+      this.activeSubmit =  this.postsService.onEditOrAddPost(this.post);
+      // console.log('post :', this.post);
       // console.log('postList :', this.postsService.postList);
 
-      // console.log(index, 'postList Add :', this.newPost);
+      // console.log(index, 'postList Add :', this.post);
       // console.log('postList Add :', this.postsService);
 
-      this.activeSubmit = (this.postsService.postList[this.index] === this.newPost);
+      // @ts-ignore
+      // this.activeSubmit = (this.postsService.onGetPostByID(this.post.id) === this.post);
       document.getElementById('post-add').style.height = h + 'px';
       document.getElementById('post-add').style.width = w + 'px';
 
-      // console.log('newPost : ', this.newPost, '\npostList[', index, '] ', this.postList[index]);
+      // console.log('post : ', this.post, '\npostList[', index, '] ', this.postList[index]);
     }
     // console.log('posts : ', this.postList);
   }
-
 }

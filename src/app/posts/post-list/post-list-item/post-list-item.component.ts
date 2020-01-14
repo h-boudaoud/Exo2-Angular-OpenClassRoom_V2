@@ -7,25 +7,40 @@ import {PostsService} from '../../../services/posts.service';
   styleUrls: ['./post-list-item.component.scss']
 })
 export class PostListItemComponent implements OnInit  {
-  @Input() index: number;
-  @Input() id: number;
-  post: object;
+  // tslint:disable-next-line:variable-name
+  index: number;
+  @Input() post: object;
 
   constructor(private postsService: PostsService) {
-    // cas de sélection des éléments par id
-    this.index = postsService.onSearchPost(this.id);
   }
 
   ngOnInit(): void {
-    this.post = this.postsService.postList[this.index];
+    // cas de sélection des éléments par id
+    // @ts-ignore
+    this.index = this.postsService.onSearchIndexPost(this.post.id);
   }
 
-  private loveIt(rep) {
-    this.postsService.onloveIt(this.index, rep);
+  loveIt(rep) {
+    // @ts-ignore
+    this.postsService.onLoveIt(this.post.id, rep);
     // console.log('loveIt(', rep, ') : ', this.postsService.postList[this.index]);
   }
 
-  private deletePost() {
-    this.postsService.onDeletePost(this.index);
+  onChangePublished(): boolean {
+    // @ts-ignore
+    return this.postsService.onChangePublished(this.post.id);
+  }
+
+  deletePost() {
+    // @ts-ignore
+    console.log('deletePost onDeletePost avec l\'index : ', this.post.id);
+    // @ts-ignore
+    if (this.post.published) {
+      // @ts-ignore
+      this.postsService.onDeletePost(this.post.id); // suppression de la liste vue sur la page d'acceuil
+    } else {
+      // @ts-ignore
+      this.postsService.onDeletePostByIndex(this.post.id); // suppression difinitive
+    }
   }
 }

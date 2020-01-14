@@ -7,6 +7,14 @@
   }"
 >
   <div *ngIf="!activeSubmit">
+    <div class="col-md-12 mb-3" *ngIf="index > -1 ">
+      <label for="title">Publication </label>
+      <label class="switch">
+        <input type="checkbox" checked
+               data-toggle="toggle"
+               [(ngModel)]="post['']" />
+      </label>
+    </div>
     <div class="col-md-12 mb-3">
       <label for="title">Title</label>
       <input
@@ -16,10 +24,10 @@
         name="title"
         placeholder="Title"
         value=""
-        [(ngModel)]="newPost.title"
+        [(ngModel)]="post['title']"
         [ngClass]="{
           'alert alert-danger':!titleError
-          ,'alert alert-success':titleError && newPost.title.trim()!=''
+          ,'alert alert-success':titleError && post['title'].trim()!=''
         }"
         role="alert"
         required>
@@ -30,10 +38,10 @@
         class="form-control"
         id="content"
         name="content"
-        [(ngModel)]="newPost.content"
+        [(ngModel)]="post['content']"
         [ngClass]="{
           'alert alert-danger':!contentError
-          ,'succes alert-succes':contentError && newPost.content.trim()!=''
+          ,'succes alert-succes':contentError && post['content'].trim()!=''
         }"
         role="alert"
       ></textarea>
@@ -48,8 +56,9 @@
       <span class="glyphicon glyphicon-ok-sign"></span> Submit
     </button>
   </div>
+  <div>activeSubmit : {{activeSubmit}} , id : {{post['id']}}</div>
   <div *ngIf="activeSubmit" class="container" >
-    Le post a bien été {{(index) ? 'modifié':'ajouté'}}
+    Le post a bien été {{(index > -1) ? 'modifié':'ajouté'}}
     <br />
     <br /><button routerLink="/posts">Voir les posts</button>
   </div>

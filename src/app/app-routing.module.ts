@@ -10,7 +10,9 @@ import {DocumentComponent} from './document/document.component';
 const routes: Routes = [
   {path: 'add', component: PostAddComponent},
   {path: 'edit/:id', component: PostAddComponent},
-  {path: 'posts/:id', component: PostListItemComponent},
+  {path: 'posts/:type/:id', component: PostListComponent},
+  {path: 'posts/:type', component: PostListComponent},
+  // {path: 'posts/:id', component: PostListComponent},
   {path: 'posts', component: PostListComponent},
   {path: 'document/:name', component: DocumentComponent},
   {path: 'error', component: ErrorComponent},

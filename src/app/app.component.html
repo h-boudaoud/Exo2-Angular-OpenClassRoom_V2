@@ -1,19 +1,39 @@
 <div class="container" role="main">
   <!-- Toolbar -->
+  <div class="navbar navbar-expand-lg">
+    <div class="spacer"></div>
+    <span>Créez une application de type blog</span>
+    <div class="spacer"></div>
+    <img
+      width="40"
+      alt="Angular Logo"
+      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+    />
+  </div>
   <nav class="navbar navbar-expand-lg">
     <button
+      *ngIf="nameComponent!='home'"
+      class="btn btn-primary"
+      routerLink="/"
+    >
+      <span class="glyphicon glyphicon-home"></span>
+    </button>
+
+    <div class="spacer"></div>
+
+      <button
       *ngIf="nameComponent!='add'"
       class="btn btn-primary"
       routerLink="add"
     >
-      <span class="glyphicon glyphicon-plus-sign"></span> Add post
+      <span class="glyphicon glyphicon-plus-sign"></span> New
     </button>
     <button
       *ngIf="nameComponent!='posts'"
       class="btn btn-primary"
       routerLink="posts"
     >
-      <span class="glyphicon glyphicon-list"></span> Post list
+      <span class="glyphicon glyphicon-list"></span> list
     </button>
     <button
       *ngIf="nameComponent!='document'"
@@ -27,19 +47,12 @@
       class="btn btn-primary"
       routerLink="document/cv-boudaoud.pdf"
     >
-      <span class="glyphicon glyphicon-open-file"></span> Mon CV
+      <span class="glyphicon glyphicon-open-file"></span> My CV
     </button>
     <div class="spacer"></div>
-    <span>Créez une application de type blog</span>
-    <div class="spacer"></div>
 
-    <div class="spacer"></div>
-    <img
-      width="40"
-      alt="Angular Logo"
-      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-    />
   </nav>
+
 
   <section>
     <h3 class="capitalize">{{pageTitle}}</h3>

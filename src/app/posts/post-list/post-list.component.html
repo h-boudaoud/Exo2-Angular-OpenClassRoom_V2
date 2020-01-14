@@ -1,14 +1,35 @@
 <section id ="post-list-item">
-  <p *ngIf="postList.length===0">La list des posts est vide</p>
-  <ul *ngIf="postList.length > 0 ">
+  <button *ngIf="nbPosts.all >0 && params.type !== 'ALL'"
+          routerLink="/posts/all"
+  ><span class="glyphicon glyphicon-list"></span>All</button>
+  <button *ngIf="nbPosts.all - nbPosts.delete > 0 && params.type !== ''"
+          routerLink="/posts"
+  ><span class="glyphicon glyphicon-list"></span>Posts</button>
+  <button *ngIf="nbPosts.delete > 0 && params.type !== 'DELETE'"
+          routerLink="/posts/delete"
+  ><span class="glyphicon glyphicon-list"></span>Delete</button>
+<!--  <button *ngIf="postsService.onLengthPostList(false) >0 "-->
+<!--          routerLink="poste/delete"-->
+<!--          content="Postes supprimés"/>-->
+  <div *ngIf="isNull">
+    <p >La list des posts est vide</p>
+    <p >Ajouter un nouveau post</p>
+    <app-post-add></app-post-add>
+
+  </div>
+  <ul *ngIf="!isNull ">
     <li
       *ngFor="let postItem of postList; let i = index"
     >
       <app-post-list-item
-        [id] = "postItem.id"
-        [index]="i"
-
+        [post] = "postItem"
       ></app-post-list-item>
     </li>
   </ul>
+  <div style="font-size: .9rem">
+    <p>Nombre de posts total : {{nbPosts.all}}
+    <br />Nombre de posts à afficher : {{nbPosts.all - nbPosts.delete}}
+    <br />Nombre de posts supprimés : {{nbPosts.delete}}
+    </p>
+  </div>
 </section>

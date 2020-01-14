@@ -10,10 +10,9 @@ import {PageTitlesService} from './services/page-titles.service';
 })
 export class AppComponent {
   title = 'Exo2-Angular-OpenClassRoom';
-  private nameComponent: string;
-  private postList: any;
-  private pageTitle: string;
-  private url: string;
+  nameComponent: string;
+  pageTitle: string;
+  url: string;
 
   constructor(
     private postsService: PostsService,
@@ -21,9 +20,7 @@ export class AppComponent {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.postList = this.postsService.postList;
-    // console.log('AppComponent -> posts :', this.postList.length, '\n', this.postList);
-    this.nameComponent = (this.postList.length > 0) ? 'posts' : 'add';
+
     this.routeEvent();
   }
   routeEvent(): void {
@@ -34,9 +31,14 @@ export class AppComponent {
         console.log ('', this.url);
         urlParams = e.url.split('/');
         urlParams.shift();
-        // console.log('AppComponent NavigationEnd url: ', urlParams[0]);
+        console.log('AppComponent NavigationEnd url: ', urlParams[0]);
         this.nameComponent = urlParams.shift();
-        // console.log('AppComponent NavigationEnd e: ', e);
+        console.log('AppComponent NavigationEnd e: ', e);
+      }
+      if (e instanceof NavigationEnd && e.url === '/') {
+        console.log('AppComponent NavigationEnd url: ', urlParams);
+        this.nameComponent = 'posts';
+        console.log('AppComponent NavigationEnd e: ', e);
       }
       this.pageTitle = this.titleService.pageTitle(this.nameComponent, urlParams);
     });

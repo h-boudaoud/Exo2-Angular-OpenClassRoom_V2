@@ -9,7 +9,7 @@ import {ElementRef} from '@angular/core';
   styleUrls: ['./document.component.scss']
 })
 export class DocumentComponent implements OnInit {
-  private url: string;
+  url: string;
   // @ts-ignore
   @ViewChild('myObject') myObject: ElementRef;
 
